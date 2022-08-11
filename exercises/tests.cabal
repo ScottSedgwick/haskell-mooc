@@ -1,24 +1,320 @@
+cabal-version: 2.4
 name: tests
 version: 0.0.1
 build-type: Simple
-cabal-version: >= 1.10
+
+common common-options
+  build-depends:  base
+                , QuickCheck==2.14.2
+                , hspec==2.7.10
+                , base==4.14.3.0
+                , containers==0.6.5.1
+                , array==0.5.4.0
+                , transformers==0.5.6.2
+                , template-haskell==2.16.0.0
+                , generic-random==1.4.0.0
+                , JuicyPixels==3.3.6
+                , HTTP==4000.3.16
+                , http-types==0.12.3
+                , text==1.2.4.1
+                , bytestring==0.10.12.0
+                , wai==3.2.3
+                , warp==3.3.18
+                , sqlite-simple==0.4.18.0
+                , parallel==3.2.2.0
+                , transformers
+                , JuicyPixels
+                , generic-random
+                , deepseq
+                , directory
+                , containers
+                , array
 
 library
-  build-depends: QuickCheck==2.14.2
-               , hspec==2.7.10
-               , base==4.14.3.0
-               , containers==0.6.5.1
-               , array==0.5.4.0
-               , transformers==0.5.6.2
-               , template-haskell==2.16.0.0
-               , generic-random==1.4.0.0
-               , JuicyPixels==3.3.6
-               , HTTP==4000.3.16
-               , http-types==0.12.3
-               , text==1.2.4.1
-               , bytestring==0.10.12.0
-               , wai==3.2.3
-               , warp==3.3.18
-               , sqlite-simple==0.4.18.0
-               , parallel==3.2.2.0
+  import:           common-options
   default-language: Haskell2010
+
+executable set1
+  import:           common-options
+  main-is:          Set1Test/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set1
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set2a
+  import:           common-options
+  main-is:          Set2aTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set2a
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set2b
+  import:           common-options
+  main-is:          Set2bTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set2b
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set3a
+  import:           common-options
+  main-is:          Set3aTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set3a
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set3b
+  import:           common-options
+  main-is:          Set3bTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set3b
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set4a
+  import:           common-options
+  main-is:          Set4aTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set4a
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set4b
+  import:           common-options
+  main-is:          Set4bTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set4b
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set5a
+  import:           common-options
+  main-is:          Set5aTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set5a
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set5b
+  import:           common-options
+  main-is:          Set5bTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set5b
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set6
+  import:           common-options
+  main-is:          Set6Test/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set6
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set7
+  import:           common-options
+  main-is:          Set7Test/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set7
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set8
+  import:           common-options
+  main-is:          Set8Test/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set8
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set9a
+  import:           common-options
+  main-is:          Set9aTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set9a
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set9b
+  import:           common-options
+  main-is:          Set9bTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set9b
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set10a
+  import:           common-options
+  main-is:          Set10aTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set10a
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set10b
+  import:           common-options
+  main-is:          Set10bTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set10b
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set11a
+  import:           common-options
+  main-is:          Set11aTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set11a
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set11b
+  import:           common-options
+  main-is:          Set11bTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set11b
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set12
+  import:           common-options
+  main-is:          Set12Test/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set12
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set13a
+  import:           common-options
+  main-is:          Set13aTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set13a
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set13b
+  import:           common-options
+  main-is:          Set13bTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set13b
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set14a
+  import:           common-options
+  main-is:          Set14aTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set14a
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set14b
+  import:           common-options
+  main-is:          Set14bTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set14b
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set15
+  import:           common-options
+  main-is:          Set15Test/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set15
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set16a
+  import:           common-options
+  main-is:          Set16aTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set16a
+  default-language: Haskell2010
+  build-depends:    tests
+
+executable set16b
+  import:           common-options
+  main-is:          Set16bTest/Main.hs
+  other-modules:    Mooc.Test 
+                  , Mooc.LimitedPrelude
+                  , Mooc.Th 
+                  , Mooc.Todo 
+                  , Set16b
+  default-language: Haskell2010
+  build-depends:    tests
