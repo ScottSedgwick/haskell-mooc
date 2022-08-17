@@ -23,6 +23,30 @@ this repository ([part1.html](part1.html), [part2.html](part2.html)).
 
 ## Exercises
 
+### New Information
+
+Exercises can be found under the `exercises` directory. All required dependencies 
+can be downloaded and built with:
+
+```
+cabal build
+```
+
+Exercises are Haskell source code files named `Set1.hs`, `Set2.hs` and so on.
+You complete the exercises by editing the file according to the instructions in
+the file. You can check your answers by running
+
+```
+cabal run SetX
+```
+
+in the `exercises/` directory. Remember to replace `X` with the number
+of the set you are working on.
+
+See [the material](part1.html#working-on-the-exercises) for more info.
+
+### Old information
+
 Exercises can be found under `exercises/` directory. All required dependencies
 can be downloaded and built with:
 
