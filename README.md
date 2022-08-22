@@ -37,7 +37,7 @@ You complete the exercises by editing the file according to the instructions in
 the file. You can check your answers by running
 
 ```
-cabal run SetX
+cabal run setX
 ```
 
 in the `exercises/` directory. Remember to replace `X` with the number
