@@ -13,6 +13,7 @@ module Set9a where
 import Data.Char
 import Data.List
 import Data.Ord
+import Data.Either
 
 import Mooc.Todo
 
@@ -26,7 +27,11 @@ import Mooc.Todo
 -- Otherwise return "Ok."
 
 workload :: Int -> Int -> String
-workload nExercises hoursPerExercise = todo
+workload nExercises hoursPerExercise | w > 100   = "Holy moly!"
+                                     | w < 10    = "Piece of cake!"
+                                     | otherwise = "Ok."
+  where
+    w = nExercises * hoursPerExercise
 
 ------------------------------------------------------------------------------
 -- Ex 2: Implement the function echo that builds a string like this:
@@ -39,7 +44,8 @@ workload nExercises hoursPerExercise = todo
 -- Hint: use recursion
 
 echo :: String -> String
-echo = todo
+echo "" = ""
+echo xs = xs <> ", " <> echo (tail xs)
 
 ------------------------------------------------------------------------------
 -- Ex 3: A country issues some banknotes. The banknotes have a serial
@@ -52,7 +58,10 @@ echo = todo
 -- are valid.
 
 countValid :: [String] -> Int
-countValid = todo
+countValid = sum . map isValid
+  where
+    isValid (_:_:a:b:c:d:_) = if (a == c || b == d) then 1 else 0
+    isValid _ = 0
 
 ------------------------------------------------------------------------------
 -- Ex 4: Find the first element that repeats two or more times _in a
@@ -64,7 +73,12 @@ countValid = todo
 --   repeated [1,2,1,2,3,3] ==> Just 3
 
 repeated :: Eq a => [a] -> Maybe a
-repeated = todo
+repeated [] = Nothing
+repeated (x:xs) = f x xs
+  where
+    f _ [] = Nothing
+    f y (z:zs) | y == z    = Just y
+               | otherwise = f z zs
 
 ------------------------------------------------------------------------------
 -- Ex 5: A laboratory has been collecting measurements. Some of the
@@ -86,7 +100,9 @@ repeated = todo
 --     ==> Left "no data"
 
 sumSuccess :: [Either String Int] -> Either String Int
-sumSuccess = todo
+sumSuccess xs = if (ys == []) then Left "no data" else Right (sum ys)
+  where 
+    ys = rights xs
 
 ------------------------------------------------------------------------------
 -- Ex 6: A combination lock can either be open or closed. The lock
@@ -108,30 +124,35 @@ sumSuccess = todo
 --   isOpen (open "0000" (lock (changeCode "0000" (open "1234" aLock)))) ==> True
 --   isOpen (open "1234" (lock (changeCode "0000" (open "1234" aLock)))) ==> False
 
-data Lock = LockUndefined
+data Lock = Open String
+          | Closed String
   deriving Show
 
 -- aLock should be a locked lock with the code "1234"
 aLock :: Lock
-aLock = todo
+aLock = Closed "1234"
 
 -- isOpen returns True if the lock is open
 isOpen :: Lock -> Bool
-isOpen = todo
+isOpen (Open _) = True
+isOpen _        = False
 
 -- open tries to open the lock with the given code. If the code is
 -- wrong, nothing happens.
 open :: String -> Lock -> Lock
-open = todo
+open _ (Open x)   = Open x
+open c (Closed s) = if c == s then Open s else Closed s
 
 -- lock closes a lock. If the lock is already closed, nothing happens.
 lock :: Lock -> Lock
-lock = todo
+lock (Closed x) = Closed x
+lock (Open x)   = Closed x
 
 -- changeCode changes the code of an open lock. If the lock is closed,
 -- nothing happens.
 changeCode :: String -> Lock -> Lock
-changeCode = todo
+changeCode _ (Closed x) = Closed x
+changeCode s (Open _)   = Open s
 
 ------------------------------------------------------------------------------
 -- Ex 7: Here's a type Text that just wraps a String. Implement an Eq
@@ -148,6 +169,11 @@ changeCode = todo
 
 data Text = Text String
   deriving Show
+
+instance Eq Text where
+  (==) (Text x) (Text y) = clean x == clean y
+    where
+      clean = filter (not . isSpace)
 
 
 ------------------------------------------------------------------------------
@@ -182,7 +208,14 @@ data Text = Text String
 --       ==> [("a",1),("b",2)]
 
 compose :: (Eq a, Eq b) => [(a,b)] -> [(b,c)] -> [(a,c)]
-compose = todo
+compose [] _ = []
+compose _ [] = []
+compose ((a,b):xs) ys = f z
+  where
+    z = find (\(c,_) -> b == c) ys
+    ws = compose xs ys
+    f Nothing = ws
+    f (Just (c,d)) = (a,d) : ws
 
 ------------------------------------------------------------------------------
 -- Ex 9: Reorder a list using a list of indices.
@@ -226,4 +259,11 @@ multiply :: Permutation -> Permutation -> Permutation
 multiply p q = map (\i -> p !! (q !! i)) (identity (length p))
 
 permute :: Permutation -> [a] -> [a]
-permute = todo
+permute xs ys = f [0..length ys - 1]
+  where
+    f []       = []
+    f (a:as)   = g (findIndex (==a) xs) : f as
+    g Nothing  = error "WTF"
+    g (Just i) = ys !! i
+
+--findIndex :: (a -> Bool) -> [a] -> Maybe Int
