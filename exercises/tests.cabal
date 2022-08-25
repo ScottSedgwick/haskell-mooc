@@ -202,6 +202,7 @@ executable set10b
   main-is:          Set10bTest/Main.hs
   other-modules:    Mooc.Test 
                   , Mooc.LimitedPrelude
+                  , Mooc.VeryLimitedPrelude
                   , Mooc.Th 
                   , Mooc.Todo 
                   , Set10b
