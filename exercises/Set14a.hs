@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Set14a where
 
 -- Remember to browse the docs of the Data.Text and Data.ByteString
@@ -28,7 +29,9 @@ import qualified Data.ByteString.Lazy as BL
 --  greetText (T.pack "Benedict Cumberbatch") ==> "Hello, Benedict Cumber...!"
 
 greetText :: T.Text -> T.Text
-greetText = todo
+greetText = (<>) "Hello, " . f
+  where
+    f x = if T.length x > 15 then T.take 15 x <> "...!" else x <> "!"
 
 ------------------------------------------------------------------------------
 -- Ex 2: Capitalize every second word of a Text.
@@ -40,7 +43,9 @@ greetText = todo
 --     ==> "WORD"
 
 shout :: T.Text -> T.Text
-shout = todo
+shout = T.unwords . map f . zip [2..] . T.words
+  where
+    f (n, w) = if even n then T.toUpper w else w
 
 ------------------------------------------------------------------------------
 -- Ex 3: Find the longest sequence of a single character repeating in
@@ -51,7 +56,10 @@ shout = todo
 --   longestRepeat (T.pack "aabbbbccc") ==> 4
 
 longestRepeat :: T.Text -> Int
-longestRepeat = todo
+longestRepeat = safemax . map T.length . T.group
+
+safemax :: (Foldable t, Ord a, Num a) => t a -> a  
+safemax xs = if null xs then 0 else maximum xs
 
 ------------------------------------------------------------------------------
 -- Ex 4: Given a lazy (potentially infinite) Text, extract the first n
@@ -64,7 +72,7 @@ longestRepeat = todo
 --   takeStrict 15 (TL.pack (cycle "asdf"))  ==>  "asdfasdfasdfasd"
 
 takeStrict :: Int64 -> TL.Text -> T.Text
-takeStrict = todo
+takeStrict n = T.pack . TL.unpack . TL.take n
 
 ------------------------------------------------------------------------------
 -- Ex 5: Find the difference between the largest and smallest byte
@@ -75,8 +83,13 @@ takeStrict = todo
 --   byteRange (B.pack []) ==> 0
 --   byteRange (B.pack [3]) ==> 0
 
+safemin :: (Foldable t, Ord a, Num a) => t a -> a
+safemin xs = if null xs then 0 else minimum xs
+
 byteRange :: B.ByteString -> Word8
-byteRange = todo
+byteRange xs = safemax ys - safemin ys
+  where
+    ys = B.unpack xs
 
 ------------------------------------------------------------------------------
 -- Ex 6: Compute the XOR checksum of a ByteString. The XOR checksum of
@@ -96,8 +109,10 @@ byteRange = todo
 --   xorChecksum (B.pack [13,197,20,197,13,20]) ==> 0
 --   xorChecksum (B.pack []) ==> 0
 
+-- foldr' :: (Word8 -> a -> a) -> a -> ByteString -> a
+
 xorChecksum :: B.ByteString -> Word8
-xorChecksum = todo
+xorChecksum = B.foldr' (\b a -> a `xor` b) 0
 
 ------------------------------------------------------------------------------
 -- Ex 7: Given a ByteString, compute how many UTF-8 characters it
@@ -114,7 +129,7 @@ xorChecksum = todo
 --   countUtf8Chars (B.drop 1 (encodeUtf8 (T.pack "åäö"))) ==> Nothing
 
 countUtf8Chars :: B.ByteString -> Maybe Int
-countUtf8Chars = todo
+countUtf8Chars = either (const Nothing) (Just . T.length) . decodeUtf8'
 
 ------------------------------------------------------------------------------
 -- Ex 8: Given a (nonempty) strict ByteString b, generate an infinite
@@ -126,5 +141,7 @@ countUtf8Chars = todo
 --     ==> [0,1,2,2,1,0,0,1,2,2,1,0,0,1,2,2,1,0,0,1]
 
 pingpong :: B.ByteString -> BL.ByteString
-pingpong = todo
-
+pingpong xs = BL.cycle (BL.append ys (BL.reverse ys))
+  where
+    ys = BL.pack (B.unpack xs)
+    
