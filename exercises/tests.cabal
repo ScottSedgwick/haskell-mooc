@@ -295,6 +295,7 @@ executable set15
                   , Mooc.LimitedPrelude
                   , Mooc.Th 
                   , Mooc.Todo 
+                  , Examples.Validation
                   , Set15
   default-language: Haskell2010
   build-depends:    tests
